@@ -764,4 +764,19 @@
     </queues>
   </batch_system>
 
+  <!-- gadi is PBS -->
+  <batch_system MACH="gadi" type="pbs">
+    <submit_args>
+      <argument> -l storage=gdata/$PROJECT+scratch/$PROJECT </argument>
+      <argument> -l mem=192GB </argument>
+      <argument> -l jobfs=400GB </argument>
+    </submit_args>
+    <directives>
+      <directive>-l ncpus={{ total_tasks }}</directive>
+    </directives>
+    <queues>
+      <queue walltimemax="48:00:00" nodemin="1" default="true">normal</queue>
+    </queues>
+  </batch_system>
+
 </config_batch>

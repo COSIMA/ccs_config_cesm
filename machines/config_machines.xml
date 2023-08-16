@@ -3640,6 +3640,58 @@ This allows using a different mpirun command to launch unit tests
     </environment_variables>
   </machine>
 
+  <machine MACH="gadi">
+    <DESC>
+      GADI environment for CESM w/ Intel compilers, os is Linux, 48 pes/node, batch system is PBSPro
+    </DESC>
+    <OS>LINUX</OS>
+    <COMPILERS>intel</COMPILERS>
+    <MPILIBS>openmpi</MPILIBS>
+    <CIME_OUTPUT_ROOT>/scratch/$ENV{PROJECT}/$ENV{USER}/cime</CIME_OUTPUT_ROOT>
+    <DIN_LOC_ROOT>/g/data/$ENV{PROJECT}/$ENV{USER}/cime/inputdata</DIN_LOC_ROOT>
+    <DIN_LOC_ROOT_CLMFORC>$DIN_LOC_ROOT/atm/datm7</DIN_LOC_ROOT_CLMFORC>
+    <DOUT_S_ROOT>/scratch/$ENV{PROJECT}/$ENV{USER}/cime/archive/$CASE</DOUT_S_ROOT>
+    <GMAKE>make</GMAKE>
+    <GMAKE_J>8</GMAKE_J>
+    <BATCH_SYSTEM>pbs</BATCH_SYSTEM>
+    <SUPPORTED_BY>accessnri</SUPPORTED_BY>
+    <MAX_TASKS_PER_NODE>48</MAX_TASKS_PER_NODE>
+    <MAX_MPITASKS_PER_NODE>48</MAX_MPITASKS_PER_NODE>
+    <PROJECT_REQUIRED>TRUE</PROJECT_REQUIRED>
+    <mpirun mpilib="openmpi">
+      <executable>mpirun</executable>
+      <arguments>
+        <arg name="task_count">-np {{ total_tasks }}</arg>
+      </arguments>
+    </mpirun>
+    <module_system type="module">
+      <init_path lang="sh">/etc/profile.d/modules.sh</init_path>
+      <init_path lang="csh">/etc/profile.d/modules.sh</init_path>
+      <init_path lang="python">/opt/Modules/v4.3.0/init/python.py</init_path>
+      <cmd_path lang="sh">module</cmd_path>
+      <cmd_path lang="csh">module</cmd_path>
+      <cmd_path lang="python">/opt/Modules/v4.3.0/bin/modulecmd python</cmd_path>
+      <modules>
+        <command name="purge"></command>
+        <command name="use">"/g/data/ik11/spack/0.20.1/modules/access-om3/0.1.0/linux-rocky8-x86_64/"</command>
+        <command name="swap">intel-compiler intel-compiler/2021.6.0</command>
+        <command name="load">openmpi/4.1.4</command>
+        <command name="load">netcdf-c/4.7.3</command>
+        <command name="load">netcdf-fortran/4.5.2</command>
+        <command name="load">esmf/8.3.0b09</command>
+      </modules>
+    </module_system>
+    <environment_variables>
+       <env name="NETCDF_C_PATH">$ENV{SPACK_NETCDF_C_ROOT}</env>
+       <env name="NETCDF_FORTRAN_PATH">$ENV{SPACK_NETCDF_FORTRAN_ROOT}</env>
+    </environment_variables>
+    <environment_variables comp_interface="nuopc">
+       <env name="ESMFMKFILE">$ENV{SPACK_ESMF_ROOT}/lib/esmf.mk</env>
+    </environment_variables>
+    <resource_limits>
+      <resource name="RLIMIT_STACK">-1</resource>
+    </resource_limits>
+  </machine>
 
   <default_run_suffix>
     <default_run_exe>${EXEROOT}/cesm.exe </default_run_exe>
