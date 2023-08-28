@@ -3773,11 +3773,12 @@ This allows using a different mpirun command to launch unit tests
       <cmd_path lang="python">/opt/Modules/v4.3.0/bin/modulecmd python</cmd_path>
       <modules>
         <command name="purge"></command>
-        <command name="use">"/g/data/ik11/spack/0.20.1/modules/access-om3/0.1.0/linux-rocky8-x86_64/"</command>
+        <command name="use">"/g/data/ik11/spack/0.20.1/modules/access-om3/cesm-0.2.0/linux-rocky8-x86_64/"</command>
         <command name="swap">intel-compiler intel-compiler/2021.6.0</command>
         <command name="load">openmpi/4.1.4</command>
         <command name="load">netcdf-c</command>
         <command name="load">netcdf-fortran</command>
+        <command name="load">parallelio</command>
         <command name="load">esmf</command>
       </modules>
     </module_system>
